@@ -9,7 +9,7 @@
       font-family: 'Arial', sans-serif;
       direction: rtl;
       text-align: right;
-      background-color: #f5f5f5;
+      background-color: #161616;
       margin: 0;
       padding: 0;
       display: flex;
@@ -29,8 +29,9 @@
     }
 
     h1 {
-      color: #4CAF50;
+      color: #007BFF;
       font-size: 24px;
+      font-weight: 700;
       margin-bottom: 20px;
     }
 
@@ -38,7 +39,7 @@
       padding: 12px;
       font-size: 16px;
       margin: 10px 0;
-      border-radius: 4px;
+      border-radius: 12px;
       border: 1px solid #ddd;
       width: 100%;
       max-width: 300px;
@@ -46,21 +47,22 @@
     }
 
     button {
-      background-color: #4CAF50;
+      background-color: #007BFF;
       color: #fff;
+      font-weight: 500;
       cursor: pointer;
     }
 
     button:hover {
-      background-color: #45a049;
+      background-color: #0659b1;
     }
 
     .result {
       margin-top: 20px;
       padding: 15px;
       background-color: #e0f7fa;
-      border: 1px solid #4CAF50;
-      border-radius: 4px;
+      border: 1px solid #00f59b;
+      border-radius: 16px;
       font-size: 18px;
       color: #00796b;
       font-weight: bold;
@@ -70,8 +72,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>تولید آدرس IP تصادفی</h1>
-    <label for="countrySelect">کشور مورد نظر خود را انتخاب کنید:</label>
+    <h1>تولید آدرس IP</h1>
+    <label for="countrySelect" style="display: block; font-size: 1.3rem;">کشور مورد نظر خود را انتخاب کنید</label>
     <select id="countrySelect">
       <option value="germany">آلمان (نسل ۴)</option>
     </select>
@@ -126,7 +128,7 @@
         const randomIP = generateRandomIP(randomRange);
 
         const resultDiv = document.getElementById('result');
-        resultDiv.textContent = `آدرس IP تصادفی: ${randomIP}`;
+        resultDiv.textContent = `IP: ${randomIP}`;
         resultDiv.hidden = false;
       } else {
         alert('کشور انتخابی پشتیبانی نمی‌شود.');
