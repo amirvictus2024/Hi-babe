@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تولید آدرس IP تصادفی</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      text-align: right;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #4CAF50;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    select, button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      width: 100%;
+      max-width: 300px;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e0f7fa;
+      border: 1px solid #4CAF50;
+      border-radius: 4px;
+      font-size: 18px;
+      color: #00796b;
+      font-weight: bold;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>تولید آدرس IP تصادفی</h1>
+    <label for="countrySelect">کشور مورد نظر خود را انتخاب کنید:</label>
+    <select id="countrySelect">
+      <option value="germany">آلمان (نسل ۴)</option>
+    </select>
+    <button id="generateBtn">تولید آدرس IP</button>
+    <div id="result" class="result" hidden></div>
+  </div>
+
+  <script>
+    // رنج‌های نسل ۴ آلمان
+    const germanyRanges = [
+      "185.54.232.0/22", "185.54.240.0/22", "185.55.68.0/22",
+      "185.55.72.0/22", "185.55.100.0/22", "185.55.116.0/22",
+      "185.55.120.0/22", "185.55.124.0/22", "185.55.152.0/22",
+      "185.55.180.0/22", "185.55.192.0/22", "185.55.220.0/22",
+      "185.55.232.0/22", "185.55.240.0/22", "185.56.104.0/22",
+      "185.56.112.0/22", "185.56.128.0/22", "185.56.132.0/22",
+      "185.56.148.0/22", "185.56.228.0/22", "185.57.0.0/22",
+      "185.57.24.0/24", "185.57.25.0/24", "185.57.26.0/23",
+      "185.57.88.0/22", "185.57.216.0/22", "185.57.240.0/22",
+      "185.58.0.0/22", "185.58.28.0/22", "185.58.36.0/22",
+      "185.58.108.0/22"
+    ];
+
+    // تابع تولید آدرس تصادفی از یک رنج
+    function generateRandomIP(range) {
+      const [base, cidr] = range.split('/');
+      const baseParts = base.split('.').map(Number);
+      const maxHosts = Math.pow(2, 32 - parseInt(cidr, 10));
+      const randomOffset = Math.floor(Math.random() * maxHosts);
+
+      let ipNum = (
+        (baseParts[0] << 24) |
+        (baseParts[1] << 16) |
+        (baseParts[2] << 8) |
+        baseParts[3]
+      ) + randomOffset;
+
+      return [
+        (ipNum >> 24) & 255,
+        (ipNum >> 16) & 255,
+        (ipNum >> 8) & 255,
+        ipNum & 255
+      ].join('.');
+    }
+
+    // رویداد کلیک روی دکمه
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const country = document.getElementById('countrySelect').value;
+
+      if (country === 'germany') {
+        const randomRange = germanyRanges[Math.floor(Math.random() * germanyRanges.length)];
+        const randomIP = generateRandomIP(randomRange);
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.textContent = `آدرس IP تصادفی: ${randomIP}`;
+        resultDiv.hidden = false;
+      } else {
+        alert('کشور انتخابی پشتیبانی نمی‌شود.');
+      }
+    });
+  </script>
+</body>
+</html>
